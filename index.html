@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Color Picker Tool</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    #colorPicker {
+      width: 200px;
+      margin-bottom: 20px;
+    }
+
+    #colorInfo {
+      text-align: center;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+    <h1>Click on the colour box to select change the backgroundColor of the screen</h1>
+  <!-- Color picker input element -->
+  <input type="color" id="colorPicker" value="#ff0000" onchange="updateColor()">
+  
+  <!-- Display color information -->
+  <div id="colorInfo">#ff0000 (RGB: 255, 0, 0)</div>
+
+  <script>
+    // Function to update color information and background color
+    function updateColor() {
+      // Get the color picker and color info elements
+      const colorPicker = document.getElementById('colorPicker');
+      const colorInfo = document.getElementById('colorInfo');
+
+      // Get the selected color value
+      const selectedColor = colorPicker.value;
+
+      // Convert the hex color to RGB values
+      const rgbValues = hexToRgb(selectedColor);
+
+      // Update the color information text
+      colorInfo.textContent = `${selectedColor} (RGB: ${rgbValues.r}, ${rgbValues.g}, ${rgbValues.b})`;
+
+      // Set the background color of the body to the selected color
+      document.body.style.backgroundColor = selectedColor;
+    }
+
+    // Function to convert hex color to RGB values
+    function hexToRgb(hex) {
+      // Remove the hash sign if present
+      hex = hex.replace(/^#/, '');
+
+      // Parse the hex values
+      const bigint = parseInt(hex, 16);
+
+      // Extract RGB components
+      const r = (bigint >> 16) & 255;
+      const g = (bigint >> 8) & 255;
+      const b = bigint & 255;
+
+      // Return an object with RGB values
+      return { r, g, b };
+    }
+  </script>
+</body>
+</html>
